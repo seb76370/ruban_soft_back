@@ -39,11 +39,11 @@ TOKEN_SECRET = ""
 EXPIRE_IN = ""
 ```
 
-**Warning**
-Dans le fichier typeorm.config.ts
-le parametre "socketPath: Sock" de la variable typeOrmConfig est spécifique a
-mon server Nginx/mariaDB
-ex: pour un server exmple il faudra le commenter
+>**Warning**
+>Dans le fichier typeorm.config.ts
+>le parametre "socketPath: Sock" de la variable typeOrmConfig est spécifique a
+>mon server Nginx/mariaDB
+>ex: pour un server exmple il faudra le commenter
 
 ## Running the app
 
