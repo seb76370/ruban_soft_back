@@ -10,14 +10,16 @@ if (process.env.SOCK === 'DEV') {
   Sock = '/var/run/mysqld/mysqld.sock';
 }
 
+console.log('dist/**/**.entity.js');
+
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
-  //socketPath: Sock,
+  socketPath: Sock,
   host: process.env.HOST,
   port: +process.env.PORT_BDD,
   username: process.env.USERNAME_BDD || process.env.USERNAME,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   entities: ['dist/**/**.entity.js'],
-  synchronize: false,
+  synchronize: true,
 };

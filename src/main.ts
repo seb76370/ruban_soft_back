@@ -5,8 +5,6 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 async function bootstrap() {
-  console.log(process.env.PRIVKEY);
-  console.log(process.env.CERT);
 
   // const httpsOptions = {
   //   key: fs.readFileSync(process.env.PRIVKEY),
