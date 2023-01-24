@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { typeOrmConfig } from './config/typeorm.config';
-import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
+import { CustomersModule } from './customers/customers.module';
+
 
 @Module({
   imports: [
@@ -14,8 +13,7 @@ import { UsersModule } from './users/users.module';
       isGlobal: true,
     }),
     UsersModule,
+    CustomersModule,
   ],
-  controllers: [AppController, UsersController],
-  providers: [AppService],
 })
 export class AppModule {}
