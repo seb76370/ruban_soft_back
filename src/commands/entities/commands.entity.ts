@@ -1,12 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
+import { CustomerEntity } from 'src/customers/entities/customer.entity';
 
 @Entity('Commands')
 export class CommandsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true, nullable: true, default: null })
+  @Column()
   @IsNotEmpty()
   Siret: string;
 
@@ -23,24 +24,33 @@ export class CommandsEntity {
   @Column()
   DateSouhaite: Date;
 
-  @Column()
+  @Column({default: "00000000"})
   DateProduction: Date;
 
-  @Column()
+  @Column({default: ""})
   RefFilm: string;
 
-  @Column()
+  @Column({default: ""})
   CodesMachine: string;
 
-  @Column()
+  @Column({default: "00000000"})
   DateFinProduction: Date;
 
-  @Column()
+  @Column({default: "00000000"})
   DateEnvoieLivraison: Date;
 
-  @Column()
+  @Column({default: ""})
   NumeroSuivi: string;
 
-  @Column()
+  @Column({default: 0})
   PoidsColis: number;
+
+
+@ManyToOne(
+  type =>CustomerEntity,
+  (customer) => customer.command
+)
+
+customer:CustomerEntity;
+
 }

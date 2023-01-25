@@ -17,6 +17,16 @@ export class CustomersService {
     return customers;
   }
 
+  async GetBySiret(Siret:number): Promise<CustomerEntity> {
+    const customers = await this.customerRepository.findOne({
+      where:{
+        Siret
+      }
+    });
+
+    return customers;
+  }
+
   async addCustomer(CustomerData: CustomerDto) {
     console.log('toto');
     const Customer = this.customerRepository.create({
