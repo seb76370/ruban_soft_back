@@ -53,6 +53,7 @@ export class CommandsService {
       this.eventsGateways.server.emit("events",commandSave)
       return { statusCode: 200, message: 'Ajout OK' };
       //return user;
+      
     } catch (e) {
       throw new ConflictException(e.sqlMessage);
     }
