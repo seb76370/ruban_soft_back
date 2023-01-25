@@ -2,6 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { validate } from 'class-validator';
 import { CustomersService } from 'src/customers/customers.service';
+import { EventsGateway } from 'src/events/events.gateways';
 import { Repository } from 'typeorm';
 import { CommandsDto } from './dto/commands.dto';
 import { CommandsEntity } from './entities/commands.entity';
@@ -12,6 +13,7 @@ export class CommandsService {
     @InjectRepository(CommandsEntity)
     private commandRepository: Repository<CommandsEntity>,
     private customerServices: CustomersService,
+    private eventsGateways: EventsGateway
   ) {}
 
   async GetAll(): Promise<CommandsEntity[]> {
@@ -47,7 +49,8 @@ export class CommandsService {
     
 
     try {
-      await this.commandRepository.save(Command);
+      const commandSave = await this.commandRepository.save(Command);
+      this.eventsGateways.server.emit("events",commandSave)
       return { statusCode: 200, message: 'Ajout OK' };
       //return user;
     } catch (e) {
