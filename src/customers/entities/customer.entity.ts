@@ -1,5 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { IsEmail, IsNotEmpty, IsNumber } from 'class-validator';
+import { CommandsController } from 'src/commands/commands.controller';
+import { CommandsEntity } from 'src/commands/entities/commands.entity';
 
 @Entity('customers')
 export class CustomerEntity {
@@ -28,5 +30,12 @@ export class CustomerEntity {
 
   @Column('text')
   adress: string;
+
+  @OneToMany(
+    type=>CommandsEntity,
+    (command)=>command.customer
+  )
+
+  command:CommandsEntity
 
 }
