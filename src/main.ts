@@ -10,9 +10,13 @@ async function bootstrap() {
   //   cert: fs.readFileSync(process.env.CERT),
   // };
 
+
   const corsOptions = {
-    origin: ['http://127.0.0.1:5500', 'https://dev-passion76.fr'],
+    // origin: ["http://51.178.81.215","http://127.0.0.1:5501"]
+    allowedHeaders: '*',
+    origin: '*',
   };
+
 
   const app = await NestFactory.create(AppModule, {});
 

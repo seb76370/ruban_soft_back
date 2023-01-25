@@ -7,39 +7,42 @@ import { CustomerEntity } from './entities/customer.entity';
 
 @Injectable()
 export class CustomersService {
-constructor(
+  constructor(
     @InjectRepository(CustomerEntity)
-    private customerRepository : Repository<CustomerEntity>
-){}
+    private customerRepository: Repository<CustomerEntity>,
+  ) {}
 
+  async GetAll(): Promise<CustomerEntity[]> {
+    const customers = await this.customerRepository.find();
+    return customers;
+  }
 
-
-async addCustomer(CustomerData: CustomerDto) {
-  console.log("toto");
+  async addCustomer(CustomerData: CustomerDto) {
+    console.log('toto');
     const Customer = this.customerRepository.create({
       ...CustomerData,
     });
 
- //validation du format DTO
- const errors = await validate(Customer);
- if (errors.length > 0) {
-   throw new ConflictException({
-     statusCode: 409,
-     message: 'validation errors',
-     propertyErrors: errors[0]['property'],
-     constraints: errors[0]['constraints'],
-   });
- }
+    //validation du format DTO
+    const errors = await validate(Customer);
+    if (errors.length > 0) {
+      console.log('ca merdeeee');
+      console.log(errors[0]);
 
- try {
-    await this.customerRepository.save(Customer);
-    return { statusCode: 200, message: 'Ajout OK' };
-    //return user;
-  } catch (e) {
-    throw new ConflictException(e.sqlMessage);
+      throw new ConflictException({
+        statusCode: 409,
+        message: 'validation errors',
+        propertyErrors: errors[0]['property'],
+        constraints: errors[0]['constraints'],
+      });
+    }
+
+    try {
+      await this.customerRepository.save(Customer);
+      return { statusCode: 200, message: 'Ajout OK' };
+      //return user;
+    } catch (e) {
+      throw new ConflictException(e.sqlMessage);
+    }
   }
-
-
-}
-
 }
