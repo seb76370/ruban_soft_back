@@ -3,7 +3,7 @@
 ## Table Content
 
 1. Informations Générales
-2. Langage et Packages
+2. Langage et Package
 3. installation
 
 ## Informations Générales
