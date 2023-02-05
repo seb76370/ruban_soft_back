@@ -5,24 +5,24 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 async function bootstrap() {
-  // const httpsOptions = {
-  //   key: fs.readFileSync(process.env.PRIVKEY),
-  //   cert: fs.readFileSync(process.env.CERT),
-  // };
-
-
-  const corsOptions = {
-    // origin: ["http://51.178.81.215","http://127.0.0.1:5501"]
-    allowedHeaders: '*',
-    origin: '*',
+  const httpsOptions = {
+  key: fs.readFileSync(process.env.PRIVKEY),
+  cert: fs.readFileSync(process.env.CERT),
   };
 
 
-  const app = await NestFactory.create(AppModule, {});
+  const corsOptions = {
+     origin: ["http://127.0.0.1:5501","https://dev-passion76.fr"]
+    //allowedHeaders: '*',
+   // origin: '*',
+  };
 
-  // httpsOptions,
+
+  const app = await NestFactory.create(AppModule, {
+	httpsOptions
+	});
   app.enableCors(corsOptions);
 
-  await app.listen(process.env.APPPORT);
+  await app.listen(process.env.PORT);
 }
 bootstrap();
